@@ -40,7 +40,7 @@ const validateListing = (req, res, next) => {
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errMsg);
-  } else {
+  } else { 
     next();
   }
 };
