@@ -11,8 +11,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRoute = require("./routes/listing.js");
+const reviewRoute = require("./routes/review.js");
+const userRoute = require("./routes/user.js");
 
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -69,8 +70,19 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.get("/demouser", async (req, res) => {
+  let fakeUser = new User({
+    email: "ramstudent@gmail.com",
+    username: "ram-student",
+  });
+
+  let registeredUser = await User.register(fakeUser, "helloworld");
+  res.send(registeredUser);
+});
+
+app.use("/listings", listingRoute);
+app.use("/listings/:id/reviews", reviewRoute);
+app.use("/", userRoute);
 
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
