@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const axios = require("axios");
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -28,17 +29,28 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+  // Forward Geocoding
+  const location = `${req.body.listing.location}, ${req.body.listing.country}`;
+
+  const geoResponse = await axios.get(
+    `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(location)}&apiKey=${process.env.MAP_TOKEN}`,
+  );
+
+  console.log(geoResponse.data.features[0].geometry);
+
   let url = req.file.path;
   let filename = req.file.filename;
 
   const newListing = new Listing(req.body.listing);
+  // Save coordinates
+  newListing.geometry = geoResponse.data.features[0].geometry;
   newListing.owner = req.user._id;
 
   newListing.image = { url, filename };
   await newListing.save();
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
-};
+};;;;
 
 module.exports.renderEditForm = async (req, res) => {
   let { id } = req.params;
