@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
-console.log(process.env.SECRET);
+// console.log(process.env.SECRET);
 
 const express = require("express");
 const app = express();
@@ -21,9 +21,11 @@ const reviewRoute = require("./routes/review.js");
 const userRoute = require("./routes/user.js");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/casariobnb";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/casariobnb";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -34,7 +36,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -44,7 +46,22 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+
+  crypto: {
+    secret: "mysupersecretcode",
+  },
+
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+  console.log("ERROR in MONGO SESSION STORE", err);
+});
+
 const sessionOptions = {
+  store,
   secret: "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
