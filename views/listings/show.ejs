@@ -1,7 +1,7 @@
 <script>
   const apiKey = "<%= process.env.MAP_TOKEN %>";
-  const coordinates = JSON.parse(
-  '<%- JSON.stringify(listing.geometry.coordinates) %>'
+  const listing = JSON.parse(
+  '<%- JSON.stringify(listing) %>'
 );
 </script>
 
