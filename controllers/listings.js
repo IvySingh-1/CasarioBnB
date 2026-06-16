@@ -36,8 +36,6 @@ module.exports.createListing = async (req, res, next) => {
     `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(location)}&apiKey=${process.env.MAP_TOKEN}`,
   );
 
-  console.log(geoResponse.data.features[0].geometry);
-
   let url = req.file.path;
   let filename = req.file.filename;
 
@@ -47,7 +45,7 @@ module.exports.createListing = async (req, res, next) => {
   newListing.owner = req.user._id;
 
   newListing.image = { url, filename };
-  await newListing.save();
+  let savedListing = await newListing.save();
   req.flash("success", "New Listing Created!");
   res.redirect("/listings");
 };;;;

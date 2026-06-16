@@ -1,5 +1,8 @@
 <script>
   const apiKey = "<%= process.env.MAP_TOKEN %>";
+  const coordinates = JSON.parse(
+  '<%- JSON.stringify(listing.geometry.coordinates) %>'
+);
 </script>
 
 <% layout("/layouts/boilerplate") %>
