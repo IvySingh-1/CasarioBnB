@@ -72,6 +72,88 @@ CasarioBnB/
 └── init/                  # Database seeding script
 ```
 
+### Request Flow & Components
+
+```mermaid
+graph TD
+    %% User Interactions
+    Client["Client Browser<br>(Bootstrap Forms, MapLibre GL Map)"]
+    
+    %% Routes
+    subgraph Routing ["Express Routing Layer (app.js)"]
+        URouter["User Router (/)"]
+        LRouter["Listing Router (/listings)"]
+        RRouter["Review Router (/listings/:id/reviews)"]
+    end
+    
+    %% Middlewares
+    subgraph MiddlewareLayer ["Middleware Pipeline (middleware.js & cloudConfig.js)"]
+        LoggedIn["isLoggedIn<br>(Auth Guard)"]
+        SaveRedirect["saveRedirectUrl<br>(Redirect Memory)"]
+        IsOwner["isOwner<br>(Listing Guard)"]
+        IsRevAuthor["isReviewAuthor<br>(Review Guard)"]
+        ValList["validateListing<br>(Joi Schema Validate)"]
+        ValRev["validateReview<br>(Joi Schema Validate)"]
+        MulterCloud["Multer Uploader<br>(Cloudinary Storage)"]
+    end
+    
+    %% Controllers
+    subgraph Controllers ["Controllers (Logic Layer)"]
+        UserController["Users Controller"]
+        ListingController["Listings Controller"]
+        ReviewController["Reviews Controller"]
+    end
+    
+    %% External Services
+    subgraph External ["External APIs & Cloud Services"]
+        Geoapify["Geoapify Geocoding API<br>(Axios Calls)"]
+        Cloudinary["Cloudinary<br>(Image Hosting)"]
+    end
+    
+    %% Database Models
+    subgraph Models ["Mongoose Schema Models"]
+        MUser["User Schema<br>(Email, Hash, Salt)"]
+        MListing["Listing Schema<br>(Title, Price, Geometry, Reviews[], Owner)"]
+        MReview["Review Schema<br>(Rating, Comment, Author)"]
+    end
+
+    %% Flow connections
+    Client -->|HTTP GET / POST / PUT / DELETE| Routing
+    
+    %% User Auth Routing Flow
+    URouter -->|/signup | UserController
+    URouter -->|/login | SaveRedirect --> UserController
+    URouter -->|/logout| UserController
+    
+    %% Listings Routing Flow
+    LRouter -->|GET /new | LoggedIn --> ListingController
+    LRouter -->|POST / | LoggedIn --> MulterCloud --> ValList --> ListingController
+    LRouter -->|GET /:id/edit | LoggedIn --> IsOwner --> ListingController
+    LRouter -->|PUT /:id | LoggedIn --> IsOwner --> MulterCloud --> ValList --> ListingController
+    LRouter -->|DELETE /:id | LoggedIn --> IsOwner --> ListingController
+    LRouter -->|GET /:id | ListingController
+    
+    %% Reviews Routing Flow
+    RRouter -->|POST / | LoggedIn --> ValRev --> ReviewController
+    RRouter -->|DELETE /:reviewId | LoggedIn --> IsRevAuthor --> ReviewController
+    
+    %% Controllers communicating with DB and External APIs
+    ListingController -->|Geocodes Locations| Geoapify
+    MulterCloud -->|Uploads Image Files| Cloudinary
+    
+    %% Model relations
+    UserController -->|CRUD| MUser
+    ListingController -->|CRUD| MListing
+    ReviewController -->|CRUD| MReview
+    
+    MListing -->|1:N Ref| MReview
+    MListing -->|1:1 Ref| MUser
+    MReview -->|1:1 Ref| MUser
+    
+    %% Cascading hook
+    MListing -.->|findOneAndDelete Hook deletes| MReview
+```
+
 ---
 
 ## 🛠️ Getting Started
