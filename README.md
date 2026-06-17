@@ -1,11 +1,14 @@
 # 🏡 CasarioBnB
 
+[![Live Demo](https://img.shields.io/badge/Render-Live%20Demo-brightgreen.svg?style=flat-square)](https://casariobnb.onrender.com/listings)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2018.x-green.svg)](https://nodejs.org)
 [![Express Version](https://img.shields.io/badge/express-v5.x-blue.svg)](https://expressjs.com)
 [![MongoDB](https://img.shields.io/badge/database-MongoDB%20Atlas-emerald.svg)](https://www.mongodb.com)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 > **CasarioBnB** is a full-featured, end-to-end full-stack web application that serves as a premium property renting platform (inspired by Airbnb/Wanderlust). Users can explore diverse accommodations around the globe, listing their own rentals, post ratings and reviews, and view precise locations of properties on fully interactive maps.
+
+🔗 **Live Deployment:** [casariobnb.onrender.com/listings](https://casariobnb.onrender.com/listings)
 
 ---
 
