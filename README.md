@@ -1,30 +1,93 @@
 # 🏡 CasarioBnB
 
-[![Live Demo](https://img.shields.io/badge/Render-Live%20Demo-brightgreen.svg?style=flat-square)](https://casariobnb.onrender.com/listings)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2018.x-green.svg)](https://nodejs.org)
-[![Express Version](https://img.shields.io/badge/express-v5.x-blue.svg)](https://expressjs.com)
-[![MongoDB](https://img.shields.io/badge/database-MongoDB%20Atlas-emerald.svg)](https://www.mongodb.com)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Live Demo](https://img.shields.io/badge/Render-Live%20Demo-FDFBD4?style=flat-square)](https://casariobnb.onrender.com/listings)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2018.x-D9D7B6.svg)](https://nodejs.org)
+[![Express Version](https://img.shields.io/badge/express-v5.x-D9D7B6.svg)](https://expressjs.com)
+[![MongoDB](https://img.shields.io/badge/database-MongoDB%20Atlas-D9D7B6.svg)](https://www.mongodb.com)
+[![License: ISC](https://img.shields.io/badge/License-ISC-D9D7B6.svg)](https://opensource.org/licenses/ISC)
 
 > **CasarioBnB** is a full-featured, end-to-end full-stack web application that serves as a premium property renting platform (inspired by Airbnb/Wanderlust). Users can explore diverse accommodations around the globe, listing their own rentals, post ratings and reviews, and view precise locations of properties on fully interactive maps.
 
 🔗 **Live Deployment:** [casariobnb.onrender.com/listings](https://casariobnb.onrender.com/listings)
 
----
+<p align="center">
+  <svg width="100%" height="4px" viewBox="0 0 100 1" preserveAspectRatio="none">
+    <linearGradient id="theme-grad-1" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0%" stop-color="#FDFBD4"/>
+      <stop offset="33%" stop-color="#D9D7B6"/>
+      <stop offset="66%" stop-color="#878672"/>
+      <stop offset="100%" stop-color="#545333"/>
+    </linearGradient>
+    <rect x="0" y="0" width="100" height="1" fill="url(#theme-grad-1)" rx="0.5"/>
+  </svg>
+</p>
 
-## ✨ Key Features
+##  Core Features
 
-- **🔒 Secure User Auth & Management**: Complete sign-up, login, and session-based logout flow powered by Passport.js with hashed credentials.
-- **🛠️ Complete Listing CRUD**: Authenticated users can list new properties, edit their listing details, upload images, or delete their posts.
-- **📸 Cloud Storage for Assets**: Uploaded property pictures are processed via Multer and stored directly on Cloudinary, keeping server storage lightweight.
-- **🗺️ Location Geocoding & Interactive Maps**: Integrated forward geocoding with Geoapify to convert listing addresses into coordinates, displayed dynamically using MapLibre GL markers.
-- **💬 Interactive Review & Star Rating System**: Guests can rate stays (1 to 5 stars) using an interactive star utility, complete with review comments and author attribution.
-- **🛡️ Robust Authorization & Validation**: Route authorization checks (preventing non-owners from editing listings/reviews) and server-side payload validation using Joi schemas.
-- **⚡ Cascade Deletion**: Deleting a property listing instantly cleans up all related review records from the database.
+<table>
+  <tr>
+    <td width="50%">
+      <strong>🔒 Secure Authentication</strong>
+      <br><br>
+      Session-based signup, login, and logout flow using Passport.js with encrypted credential storage.
+    </td>
+    <td width="50%">
+      <strong>🛠️ Complete Listings CRUD</strong>
+      <br><br>
+      Create, read, update, and delete property listings. Restricts listing modifications strictly to their owners.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong> Cloud Media Storage</strong>
+      <br><br>
+      Integrates Multer & Cloudinary Storage to parse and upload listing cover photos, keeping server storage lightweight.
+    </td>
+    <td>
+      <strong>🗺️ Geoapify Geocoding</strong>
+      <br><br>
+      Translates textual locations into real GeoJSON coordinate points on creation, saving precise coordinate geometry.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>💬 Review & Rating System</strong>
+      <br><br>
+      Provides an interactive star rating form and comment system for authenticated users to review listed stays.
+    </td>
+    <td>
+      <strong>📍 Interactive MapLibre Maps</strong>
+      <br><br>
+      Displays listing locations on a customizable interactive MapLibre map centered on the geocoded coordinates.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong> Schema Validations</strong>
+      <br><br>
+      Enforces strong server-side validation via Joi schemas alongside custom client-side Bootstrap form checks.
+    </td>
+    <td>
+      <strong>⚡ Cascade Cleanup & Session Store</strong>
+      <br><br>
+      Automatically clears listing reviews on deletion via Mongoose hooks, backed by connect-mongo session persistence.
+    </td>
+  </tr>
+</table>
 
----
+<p align="center">
+  <svg width="100%" height="4px" viewBox="0 0 100 1" preserveAspectRatio="none">
+    <linearGradient id="theme-grad-2" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0%" stop-color="#FDFBD4"/>
+      <stop offset="33%" stop-color="#D9D7B6"/>
+      <stop offset="66%" stop-color="#878672"/>
+      <stop offset="100%" stop-color="#545333"/>
+    </linearGradient>
+    <rect x="0" y="0" width="100" height="1" fill="url(#theme-grad-2)" rx="0.5"/>
+  </svg>
+</p>
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 ### Backend & Database
 
@@ -45,7 +108,17 @@
 - **Geoapify** (Geocoding API & Map Style sheets)
 - **Axios** (outbound API requests)
 
----
+<p align="center">
+  <svg width="100%" height="4px" viewBox="0 0 100 1" preserveAspectRatio="none">
+    <linearGradient id="theme-grad-3" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0%" stop-color="#FDFBD4"/>
+      <stop offset="33%" stop-color="#D9D7B6"/>
+      <stop offset="66%" stop-color="#878672"/>
+      <stop offset="100%" stop-color="#545333"/>
+    </linearGradient>
+    <rect x="0" y="0" width="100" height="1" fill="url(#theme-grad-3)" rx="0.5"/>
+  </svg>
+</p>
 
 ## 📂 Project Architecture
 
@@ -154,7 +227,17 @@ graph TD
     MListing -.->|findOneAndDelete Hook deletes| MReview
 ```
 
----
+<p align="center">
+  <svg width="100%" height="4px" viewBox="0 0 100 1" preserveAspectRatio="none">
+    <linearGradient id="theme-grad-4" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0%" stop-color="#FDFBD4"/>
+      <stop offset="33%" stop-color="#D9D7B6"/>
+      <stop offset="66%" stop-color="#878672"/>
+      <stop offset="100%" stop-color="#545333"/>
+    </linearGradient>
+    <rect x="0" y="0" width="100" height="1" fill="url(#theme-grad-4)" rx="0.5"/>
+  </svg>
+</p>
 
 ## 🛠️ Getting Started
 
@@ -212,9 +295,17 @@ Make sure you have installed:
     ```
     Your application will start and be accessible at [http://localhost:8080](http://localhost:8080).
 
----
-
----
+<p align="center">
+  <svg width="100%" height="4px" viewBox="0 0 100 1" preserveAspectRatio="none">
+    <linearGradient id="theme-grad-5" x1="0" y1="0" x2="100%" y2="0">
+      <stop offset="0%" stop-color="#FDFBD4"/>
+      <stop offset="33%" stop-color="#D9D7B6"/>
+      <stop offset="66%" stop-color="#878672"/>
+      <stop offset="100%" stop-color="#545333"/>
+    </linearGradient>
+    <rect x="0" y="0" width="100" height="1" fill="url(#theme-grad-5)" rx="0.5"/>
+  </svg>
+</p>
 
 <div align="center">
 
@@ -226,7 +317,7 @@ Thank you for exploring this project.
 
 Developed by **Ivy Singh**
 
-📧 [ivysingh99@gmail.com](mailto:ivysingh99@gmail.com)
+ [ivysingh99@gmail.com](mailto:ivysingh99@gmail.com)
 🔗 [LinkedIn](https://www.linkedin.com/in/ivysingh99/)
 
 </div>
